@@ -17,6 +17,8 @@ namespace TamagotchiAPI.Models
 
         public DbSet<Pet> Pets { get; set; }
         public DbSet<Playtime> PlayTimes { get; set; }
+        public DbSet<Feeding> Feedings { get; set; }
+        public DbSet<Scolding> Scoldings { get; set; }
 
 
 
