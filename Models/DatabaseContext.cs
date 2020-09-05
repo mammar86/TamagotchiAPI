@@ -16,6 +16,10 @@ namespace TamagotchiAPI.Models
         // Add database tables here
 
         public DbSet<Pet> Pets { get; set; }
+        public DbSet<Playtime> PlayTimes { get; set; }
+
+
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
