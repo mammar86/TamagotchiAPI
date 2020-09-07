@@ -167,6 +167,89 @@ namespace TamagotchiAPI.Controllers
             //
             return NoContent();
         }
+        [HttpPost("{id}/Playtimes")]
+        public async Task<ActionResult<Playtime>> CreatePlaytimeForPet(int id, Playtime playtime)
+        {
+
+            // Find the pet in the database using `FindAsync` to look it up by id
+            var pet = await _context.Pets.FindAsync(id);
+
+            // If we didn't find anything, we receive a `null` in return
+            if (pet == null)
+            {
+                // Return a `404` response to the client indicating we could not find a pet with this id
+                return NotFound();
+            }
+
+            playtime.PetId = pet.Id;
+            pet.HungerLevel += 5;
+            pet.HappinessLevel += 3;
+
+            // Indicate to the database context we want to add this new record
+            _context.PlayTimes.Add(playtime);
+            await _context.SaveChangesAsync();
+
+            return Ok(playtime);
+
+
+        }
+
+        [HttpPost("{id}/Feedings")]
+        public async Task<ActionResult<Playtime>> CreatePlaytimeForPet(int id, Feeding feeding)
+        {
+
+            // Find the pet in the database using `FindAsync` to look it up by id
+            var pet = await _context.Pets.FindAsync(id);
+
+            // If we didn't find anything, we receive a `null` in return
+            if (pet == null)
+            {
+                // Return a `404` response to the client indicating we could not find a pet with this id
+                return NotFound();
+            }
+
+            feeding.PetId = pet.Id;
+            pet.HungerLevel -= 5;
+            pet.HappinessLevel += 3;
+
+            // Indicate to the database context we want to add this new record
+            _context.Feedings.Add(feeding);
+            await _context.SaveChangesAsync();
+
+            return Ok(feeding);
+
+
+        }
+
+        [HttpPost("{id}/Scoldings")]
+        public async Task<ActionResult<Playtime>> CreatePlaytimeForPet(int id, Scolding scolding)
+        {
+
+            // Find the pet in the database using `FindAsync` to look it up by id
+            var pet = await _context.Pets.FindAsync(id);
+
+            // If we didn't find anything, we receive a `null` in return
+            if (pet == null)
+            {
+                // Return a `404` response to the client indicating we could not find a pet with this id
+                return NotFound();
+            }
+
+            scolding.PetId = pet.Id;
+            pet.HappinessLevel -= 5;
+
+
+            // Indicate to the database context we want to add this new record
+
+            _context.Scoldings.Add(scolding);
+            await _context.SaveChangesAsync();
+
+            return Ok(scolding);
+
+
+        }
+
+
 
         // Private helper method that looks up an existing pet by the supplied id
         private bool PetExists(int id)

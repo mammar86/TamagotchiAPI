@@ -10,3 +10,4 @@ namespace TamagotchiAPI.Models
         public Pet Pet { get; set; }
     }
 }
+
